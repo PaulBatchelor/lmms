@@ -436,11 +436,11 @@ const surroundSampleFrame * Mixer::renderNextBuffer()
 	}
 
 	// STAGE 1: run and render all play handles
-	//MixerWorkerThread::fillJobQueue<PlayHandleList>( m_playHandles );
-	//MixerWorkerThread::startAndWaitForJobs();
-    for(int i = 0; i < m_playHandles.count(); i++) {
-        m_playHandles.value(i)->doProcessing();
-    }
+	MixerWorkerThread::fillJobQueue<PlayHandleList>( m_playHandles );
+	MixerWorkerThread::startAndWaitForJobs();
+    //for(int i = 0; i < m_playHandles.count(); i++) {
+    //    m_playHandles.value(i)->doProcessing();
+    //}
 
 	// removed all play handles which are done
 	for( PlayHandleList::Iterator it = m_playHandles.begin();
@@ -469,12 +469,12 @@ const surroundSampleFrame * Mixer::renderNextBuffer()
 	}
 
 	// STAGE 2: process effects of all instrument- and sampletracks
-	//MixerWorkerThread::fillJobQueue<QVector<AudioPort *> >( m_audioPorts );
-	//MixerWorkerThread::startAndWaitForJobs();
+	MixerWorkerThread::fillJobQueue<QVector<AudioPort *> >( m_audioPorts );
+	MixerWorkerThread::startAndWaitForJobs();
 
-    for(int i = 0; i < m_audioPorts.count(); i++) {
-        m_audioPorts.value(i)->doProcessing();
-    }
+    //for(int i = 0; i < m_audioPorts.count(); i++) {
+    //    m_audioPorts.value(i)->doProcessing();
+    //}
 
 
 	// STAGE 3: do master mix in FX mixer
